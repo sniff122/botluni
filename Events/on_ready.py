@@ -11,7 +11,7 @@ class onreadyEvent(commands.Cog):
         print('Ready and online. :-)')
         print('Bot User Name: ' + self.bot.user.name)
         print('Bot ID: ' + str(self.bot.user.id))
-        await self.bot.change_presence(activity=discord.Game(name='BitBot hä', type=0))
+        await self.bot.change_presence(activity=discord.Game(name='BotLuni hä', type=0))
 
         for command in self.bot.config["disabled commands"]:
             print(f"Disabling command '{command}'")
