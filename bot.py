@@ -34,11 +34,12 @@ def check_if_correct_user(ctx):
     else:
         return False
 
+intents = discord.Intents.all()
 
 prefix = config["prefix"]
 cmds_dir = config["cmds_dir"]
 events_dir = config["events_dir"]
-bot = commands.Bot(command_prefix=commands.when_mentioned_or(prefix), case_insensitive=True)
+bot = commands.Bot(command_prefix=commands.when_mentioned_or(prefix), case_insensitive=True, intents=intents)
 bot.remove_command("help")
 bot.config = config
 bot.save_config = save_config
