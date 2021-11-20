@@ -1,0 +1,36 @@
+{
+    "help": {
+        "description": "Displays this help message",
+        "args": ["<command name>"]
+    },
+    "ping": {
+        "description": "Checks the latency between the bot and Discord",
+        "args": [
+            "None"
+        ]
+    },
+    "bit": {
+        "description": "Joins the voice channel you are in and plays a BitLuni meme",
+        "args": [
+            "None"
+        ]
+    },
+    "sendbit": {
+        "description": "Sends an audo clip of BitLuni in the text channel the command is ran in",
+        "args": [
+            "None"
+        ]
+    },
+    "image": {
+        "description": "Sends a random image of BitLuni doing something stupid",
+        "args": [
+            "None"
+        ]
+    },
+    "info": {
+        "description": "Retrieves information about the bot",
+        "args": [
+            "None"
+        ]
+    }
+}
