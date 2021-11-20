@@ -82,6 +82,28 @@ class OwnerCommands(commands.Cog):
         else:
             await ctx.send(':white_check_mark: **`SUCCESS`**, reloaded `{}`'.format(cog))
 
+    @commands.command(name="eval")
+    @commands.is_owner()
+    async def eval(self, ctx, *, msg: commands.clean_content):
+        """ Debug and eval code. """
+        msg = msg.replace("“", '"')
+        msg = msg.replace("‘", "'")
+        msg = msg.replace('print', 'await ctx.send')
+        env = {
+            "self": self,
+            "bot": self.bot,
+            "ctx": ctx,
+            "message": ctx.message,
+            "guild": ctx.guild,
+            "channel": ctx.channel,
+            "author": ctx.author
+        }
+        exec(
+            'async def __ex(self, bot, ctx, message, guild, channel, author): ' +
+            ''.join(f'\n    {i}' for i in msg.split('\n'))
+        )
+        return await locals()['__ex'](*env.values())
+
 
 def setup(bot):
     bot.add_cog(OwnerCommands(bot))
