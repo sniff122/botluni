@@ -4,7 +4,7 @@ import asyncio, random, os
 
 def get_bitluni():
     filenames = []
-    for (dirpath, dirname, filename) in os.walk("Audio"):
+    for (dirpath, dirname, filename) in os.walk("media/Audio"):
         filenames.extend(filename)
         break
     return filenames
@@ -36,7 +36,7 @@ class BitCommand(commands.Cog):
             except discord.errors.Forbidden:
                 await message.edit(content="I do not have permission to join that voice channel")
                 return
-        audio_source = discord.FFmpegPCMAudio(str(f"Audio/{str(random.choice(get_bitluni()))}"))
+        audio_source = discord.FFmpegPCMAudio(str(f"media/Audio/{str(random.choice(get_bitluni()))}"))
         await message.edit(content="**hä**")
         if not voice_client.is_playing():
             voice_client.play(audio_source, after=None)

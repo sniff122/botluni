@@ -5,7 +5,7 @@ import asyncio, random, os
 
 def get_bitluni_audio():
     filenames = []
-    for (dirpath, dirname, filename) in os.walk("Audio"):
+    for (dirpath, dirname, filename) in os.walk("media/Audio"):
         filenames.extend(filename)
         break
     return filenames
@@ -13,7 +13,7 @@ def get_bitluni_audio():
 
 def get_luni_image():
     filenames = []
-    for (dirpath, dirname, filename) in os.walk("Images"):
+    for (dirpath, dirname, filename) in os.walk("media/Images"):
         filenames.extend(filename)
         break
     return filenames

@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 from discord import opus
-import random
 import asyncio
 import json
 import os
@@ -13,9 +12,11 @@ with open("config.json", "r") as f:
 with open("commands.json", "r") as f:
     cmds = json.load(f)
 
+
 def save_config(conf):
     with open("config.json", "w") as f:
         json.dump(conf, f, indent=4)
+
 
 def load_opus_lib(opus_libs=['libopus.so.0']):
     if opus.is_loaded():
@@ -28,11 +29,13 @@ def load_opus_lib(opus_libs=['libopus.so.0']):
             pass
         raise RuntimeError('Could not load an opus lib. Tried %s' % (', '.join(opus_libs)))
 
+
 def check_if_correct_user(ctx):
-    if str(ctx.author.id) in ["176371068448145408", "234286394380386304"]:
+    if ctx.author.id in [176371068448145408, 478875507392380929]:
         return True
     else:
         return False
+
 
 intents = discord.Intents.all()
 
