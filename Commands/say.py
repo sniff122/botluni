@@ -7,9 +7,14 @@ import urllib.parse
 class SayCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.langto = {"seon": "en_au", "bitluni": "de", "lewis": "en_gb"}
 
     @commands.command(name="lang")
     async def __lang_command(self, ctx, lang: str = None):
+        try:
+            lang = self.langto[lang]
+        except:
+            pass
         await self.bot.db.execute("INSERT INTO userlangs (userid, lang) VALUES ($1, $2) ON CONFLICT ON CONSTRAINT userlangs_pkey DO UPDATE SET lang=$2", ctx.author.id, lang)
         return await ctx.message.add_reaction("👍")
 

@@ -30,7 +30,7 @@ async def create_db():
     global db
     logger.info("Connecting to DB")
     try:
-        db = await asyncpg.create_pool(**creds, max_size=50, min_size=10)
+        db = await asyncpg.create_pool(**creds, max_size=20, min_size=2)
     except:
         logger.fatal(f"FAILED to connect to DB:")
         traceback.print_exc()
