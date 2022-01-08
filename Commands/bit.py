@@ -38,6 +38,10 @@ class BitCommand(commands.Cog):
             except discord.errors.Forbidden:
                 await message.edit(content="I do not have permission to join that voice channel")
                 return
+
+        if voice_client.is_playing():
+            return
+
         await message.edit(content="**hä**")
         for i in range(0, num):
             audio_source = discord.FFmpegPCMAudio(str(f"media/Audio/{str(random.choice(get_bitluni()))}"))

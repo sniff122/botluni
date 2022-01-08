@@ -46,6 +46,10 @@ class SayCommand(commands.Cog):
                 await message.edit(content="I do not have permission to join that voice channel")
                 return
 
+
+        if voice_client.is_playing():
+            return
+
         urlencodedtext = urllib.parse.quote(text, safe='')
 
         userlang = await self.bot.db.fetch("SELECT * FROM userlangs WHERE userid=$1", ctx.author.id)
