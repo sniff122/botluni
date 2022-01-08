@@ -40,6 +40,7 @@ class BitCommand(commands.Cog):
                 return
 
         if voice_client.is_playing():
+            await message.edit(content="I'm already speaking! Wait until im finished!")
             return
 
         await message.edit(content="**hä**")
