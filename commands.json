@@ -9,6 +9,12 @@
             "None"
         ]
     },
+     "say": {
+        "description": "Performs TTS for whatever you enter",
+        "args": [
+            "[text] - The text to say in voice"
+        ]
+    },
     "bit": {
         "description": "Joins the voice channel you are in and plays a BitLuni meme",
         "args": [
