@@ -15,8 +15,8 @@ class BitCommand(commands.Cog):
 
     @commands.command(name="bit")
     async def __bit_command__(self, ctx, num: int = 1):
-        if num > 5:
-            num = 5
+        if num > 10:
+            num = 10
         message = await ctx.send("Joining voice channel")
         guild = ctx.guild
         author: discord.Member = ctx.author
