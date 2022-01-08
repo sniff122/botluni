@@ -4,24 +4,20 @@ import asyncio, random, os
 import urllib.parse
 
 
-def get_bitluni():
-    filenames = []
-    for (dirpath, dirname, filename) in os.walk("media/Audio"):
-        filenames.extend(filename)
-        break
-    return filenames
-
-
 class SayCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.command(name="lang")
+    async def __lang_command(self, ctx, lang: str = None):
+        await self.bot.db.execute("INSERT INTO userlangs (userid, lang) VALUES ($1, $2) ON CONFLICT ON CONSTRAINT userlangs_pkey DO UPDATE SET lang=$2", ctx.author.id, lang)
+        return await ctx.message.add_reaction("👍")
+
+
     @commands.command(name="say")
-    async def __say_command__(self, ctx, lang: str = None, *, text: str = None):
+    async def __say_command__(self, ctx, *, text: str = None):
         if text is None:
             return await ctx.send("You need some text to say!")
-        if lang is None:
-            return await ctx.send("You need a language!")
 
         message = await ctx.send("Joining voice channel")
         guild = ctx.guild
@@ -46,6 +42,12 @@ class SayCommand(commands.Cog):
                 return
 
         urlencodedtext = urllib.parse.quote(text, safe='')
+
+        userlang = await self.bot.db.fetch("SELECT * FROM userlangs WHERE userid=$1", ctx.author.id)
+        if len(userlang) == 0:
+            lang = "it"
+        else:
+            lang = userlang[0]["lang"]
 
         TTSURL = f"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl={lang}&q={urlencodedtext}"
 

@@ -5,12 +5,40 @@ import asyncio
 import json
 import os
 import traceback
+import asyncpg
+import logging
+
+logger = logging.getLogger('BotLuni')
+logger.setLevel(logging.INFO)
+logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s')
 
 with open("config.json", "r") as f:
     config = json.load(f)
 
 with open("commands.json", "r") as f:
     cmds = json.load(f)
+
+
+async def create_db():
+    creds = {
+        "host": config["db"]["host"],
+        "database": config["db"]["database"],
+        "user": config["db"]["user"],
+        "password": config["db"]["password"]
+    }
+
+    global db
+    logger.info("Connecting to DB")
+    try:
+        db = await asyncpg.create_pool(**creds, max_size=50, min_size=10)
+    except:
+        logger.fatal(f"FAILED to connect to DB:")
+        traceback.print_exc()
+        os._exit(1)
+
+    logger.info("Connected to DB")
+
+    return db
 
 
 def save_config(conf):
@@ -47,6 +75,8 @@ bot.remove_command("help")
 bot.config = config
 bot.save_config = save_config
 bot.cmds = cmds
+bot.db = bot.loop.run_until_complete(create_db())
+
 
 for extension in [f.replace('.py', '') for f in os.listdir(cmds_dir) if os.path.isfile(os.path.join(cmds_dir, f))]:
     try:
