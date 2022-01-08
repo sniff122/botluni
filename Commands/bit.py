@@ -14,7 +14,9 @@ class BitCommand(commands.Cog):
         self.bot = bot
 
     @commands.command(name="bit")
-    async def __bit_command__(self, ctx):
+    async def __bit_command__(self, ctx, num: int = 1):
+        if num > 5:
+            num = 5
         message = await ctx.send("Joining voice channel")
         guild = ctx.guild
         author: discord.Member = ctx.author
@@ -36,19 +38,19 @@ class BitCommand(commands.Cog):
             except discord.errors.Forbidden:
                 await message.edit(content="I do not have permission to join that voice channel")
                 return
-        audio_source = discord.FFmpegPCMAudio(str(f"media/Audio/{str(random.choice(get_bitluni()))}"))
         await message.edit(content="**hä**")
-        if not voice_client.is_playing():
-            voice_client.play(audio_source, after=None)
-        else: 
-            return
-        while True:
+        for i in range(0, num):
+            audio_source = discord.FFmpegPCMAudio(str(f"media/Audio/{str(random.choice(get_bitluni()))}"))
             if not voice_client.is_playing():
-                await voice_client.disconnect()
-                return
+                voice_client.play(audio_source, after=None)
             else:
+                return
+            while voice_client.is_playing():
+                await asyncio.sleep(0.1)
                 continue
-            await asyncio.sleep(0.1)
+        await asyncio.sleep(0.5)
+        await voice_client.disconnect()
+
 
 
 def setup(bot):
