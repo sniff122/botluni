@@ -46,8 +46,8 @@ class SayCommand(commands.Cog):
                 await message.edit(content="I do not have permission to join that voice channel")
                 return
 
-
         if voice_client.is_playing():
+            await message.edit(content="I'm already speaking! Wait until im finished!")
             return
 
         urlencodedtext = urllib.parse.quote(text, safe='')
