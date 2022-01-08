@@ -3,6 +3,7 @@ from discord.ext import commands
 import asyncio, random, os
 import urllib.parse
 
+
 def get_bitluni():
     filenames = []
     for (dirpath, dirname, filename) in os.walk("media/Audio"):
@@ -10,14 +11,18 @@ def get_bitluni():
         break
     return filenames
 
+
 class SayCommand(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(name="say")
-    async def __say_command__(self, ctx, *, text: str = None):
+    async def __say_command__(self, ctx, lang: str = None, *, text: str = None):
         if text is None:
             return await ctx.send("You need some text to say!")
+        if lang is None:
+            return await ctx.send("You need a language!")
+
         message = await ctx.send("Joining voice channel")
         guild = ctx.guild
         author: discord.Member = ctx.author
@@ -42,7 +47,7 @@ class SayCommand(commands.Cog):
 
         urlencodedtext = urllib.parse.quote(text, safe='')
 
-        TTSURL = f"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en_gb&q={urlencodedtext}"
+        TTSURL = f"https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl={lang}&q={urlencodedtext}"
 
         await asyncio.sleep(0.5)
 
