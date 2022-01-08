@@ -55,11 +55,13 @@ class SayCommand(commands.Cog):
             return
         while True:
             if not voice_client.is_playing():
+                await asyncio.sleep(0.5)
                 await voice_client.disconnect()
                 return
             else:
+                await asyncio.sleep(0.1)
                 continue
-            await asyncio.sleep(0.1)
+
 
 
 def setup(bot):
