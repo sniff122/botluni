@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio, random, os
 import urllib.parse
+import time
 
 
 class SayCommand(commands.Cog):
@@ -69,12 +70,20 @@ class SayCommand(commands.Cog):
             voice_client.play(audio_source, after=None)
         else: 
             return
+
+        start = time.time()
+
         while True:
             if not voice_client.is_playing():
                 await asyncio.sleep(0.5)
                 await voice_client.disconnect()
                 return
             else:
+                cur = time.time()
+                if cur-start > 10:
+                    await message.edit(content="I've been speaking for too long! I need a rest! <:bitlunisleepy:912806551742464020>")
+                    await voice_client.stop()
+                    await voice_client.disconnect()
                 await asyncio.sleep(0.1)
                 continue
 
