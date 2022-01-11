@@ -25,6 +25,9 @@ class SayCommand(commands.Cog):
         if text is None:
             return await ctx.send("You need some text to say!")
 
+        text = text.replace("laser", "Light Amplification by Stimulated Emission of Radiation")
+        text = text.replace("LASER", "Light Amplification by Stimulated Emission of Radiation")
+
         message = await ctx.send("Joining voice channel")
         guild = ctx.guild
         author: discord.Member = ctx.author
