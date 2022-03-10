@@ -8,6 +8,9 @@ import traceback
 import asyncpg
 import logging
 
+os.system("pwd")
+os.system("ls")
+
 logger = logging.getLogger('BotLuni')
 logger.setLevel(logging.INFO)
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s')
@@ -46,7 +49,7 @@ def save_config(conf):
         json.dump(conf, f, indent=4)
 
 
-def load_opus_lib(opus_libs=['libopus.so.0']):
+def load_opus_lib(opus_libs=['/bot/libopus.so.0']):
     if opus.is_loaded():
         return True
     for opus_lib in opus_libs:
@@ -54,7 +57,7 @@ def load_opus_lib(opus_libs=['libopus.so.0']):
             opus.load_opus(opus_lib)
             return
         except OSError:
-            pass
+            raise
         raise RuntimeError('Could not load an opus lib. Tried %s' % (', '.join(opus_libs)))
 
 
@@ -133,5 +136,5 @@ async def __reload_all_command(ctx):
     
     await msg.edit(content="Commands and events reload complete!")
 
-load_opus_lib()
+#load_opus_lib()
 bot.run(bot.config["token"])

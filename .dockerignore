@@ -1,0 +1,6 @@
+config.json
+.git
+.gitignore
+.gitmodules
+**/__pycache__
+.idea
