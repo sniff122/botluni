@@ -44,8 +44,15 @@ class BitCommand(commands.Cog):
             return
 
         await message.edit(content="**hä**")
+
+        played_audio = []
+
         for i in range(0, num):
-            audio_source = discord.FFmpegPCMAudio(str(f"media/Audio/{str(random.choice(get_bitluni()))}"))
+            audio_file = random.choice(get_bitluni())
+            while audio_file in played_audio:
+                audio_file = random.choice(get_bitluni())
+            played_audio.append(audio_file)
+            audio_source = discord.FFmpegPCMAudio(str(f"media/Audio/{str(audio_file)}"))
             if not voice_client.is_playing():
                 voice_client.play(audio_source, after=None)
             else:
