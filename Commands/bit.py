@@ -17,6 +17,8 @@ class BitCommand(commands.Cog):
     async def __bit_command__(self, ctx, num: int = 1):
         if num > 10:
             num = 10
+        if self.bot.tts_vc is not None:
+            return await ctx.send(f"I'm currently handling stream TTS! Why don't you join {self.bot.tts_vc}!")
         message = await ctx.send("Joining voice channel")
         guild = ctx.guild
         author: discord.Member = ctx.author

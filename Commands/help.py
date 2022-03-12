@@ -8,7 +8,7 @@ class HelpCommand(commands.Cog):
 
     @commands.command(name="help")
     async def _help_command_(self, ctx, command:str=None):
-        embed = discord.Embed(name="Bot Help", description="Help for the bot", colour=0xffffff)
+        embed = discord.Embed(title="Bot Help", description="Help for the bot", colour=0xffffff)
         embed.set_footer(text="BotLuni developed by @sniff122#6218")
 
         if command == None:

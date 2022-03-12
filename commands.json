@@ -38,5 +38,23 @@
         "args": [
             "None"
         ]
+    },
+    "tts": {
+        "description": "Command group for stream TTS management",
+        "args": [
+            "Subcommand"
+        ]
+    },
+    "join": {
+        "description": "Subcommand of `tts` to join either the channel you give or the channel you are currently in",
+        "args": [
+            "<Voice Channel>"
+        ]
+    },
+    "leave": {
+        "description": "Subcommand of `tts` to leave the channel the bot is currently in",
+        "args": [
+            "None"
+        ]
     }
 }

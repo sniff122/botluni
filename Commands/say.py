@@ -25,6 +25,9 @@ class SayCommand(commands.Cog):
         if text is None:
             return await ctx.send("You need some text to say!")
 
+        if self.bot.tts_vc is not None:
+            return await ctx.send(f"I'm currently handling stream TTS! Why don't you join {self.bot.tts_vc}!")
+
         text = text.replace("laser", "Light Amplification by Stimulated Emission of Radiation")
         text = text.replace("LASER", "Light Amplification by Stimulated Emission of Radiation")
 
